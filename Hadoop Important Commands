@@ -1,0 +1,59 @@
+Hadoop Important Commands
+
+Commands:
+
+ls: To list the files and directories
+example: hadoop fs -ls /
+
+count: To count the number of files/directories
+example: hadoop fs -count /
+
+mkdir: To create directories in HDFS.
+example: hadoop fs -mkdir /hadoop/data
+
+setrep: to set replication for the file
+example: hadoop fs -setrep 2 /training/input.txt
+
+copyToLocal: Copying data from hdfs to Local
+example: hadoop fs - copyToLocal /hadoop/manish.txt /bigdata/
+      
+put: To load the files from local file system to HDFS
+expample: hadoop fs -put /bigdata/stocks /hadoop
+      
+get: To load the files from HDFS to local file system
+example: hadoop fs -get /data/stocks groups
+      
+cat: Prints the data over STDOUT i.e., console.
+example: hadoop fs -cat /data/stocks
+
+tail: Prints last 1KB of the file.
+example: hadoop fs -tail /data/stocks
+
+touchz: To create empty file
+example: hadoop fs -touchz /training/name
+    
+cp: Copies the file or directory from one HDFS path to another HDFS path.
+example: hadoop fs -cp /hadoopdata/stocks  /manish/stocks
+      
+mv: Rename file or directory in HDFS
+example: hadoop fs -mv /data/groups /groups
+     
+rm: To delete file or directory in HDFS
+example: hadoop fs -rm /nyse/stocks - to Delete file
+example: hadoop fs -rm -R /hadoop - to delete directory
+
+balancer: To balance the hadoop cluster
+example: hadoop balancer
+
+fsck: To check the file blocks location
+example: hadoop fsck --files --location --blocks
+
+distcp: To copy the file to different cluster
+example: hadoop distcp -p -overwrite "hdfs://localhost:9000/training/bar" "hdfs://anotherhostname:8020/user/foo"
+
+archive: To archive the files
+example: hadoop archive –archiveName  myfile.har –p /data /data/files /archive/
+
+dfsadmin: 
+example: hadoop dfsadmin -safemode get
+
