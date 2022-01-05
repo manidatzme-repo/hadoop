@@ -37,6 +37,7 @@ agent1.sinks.sink-1.hdfs.rollInterval = 60
 agent1.sinks.sink-1.hdfs.rollSize = 0
 agent1.sinks.sink-1.hdfs.rollCount = 0
 
+agent1.channels.Channel-2.type = memory
 
 ################################################
 
