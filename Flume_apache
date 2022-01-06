@@ -1,0 +1,35 @@
+#Agent Configuration
+
+myagent.sources = logs
+myagent.sinks = kafka 
+myagent.channels = kafka-channel
+
+#Source configuration
+
+myagent.sources.logs.type = exec
+myagent.sources.logs.command = tail -f /var/log/apache2/access.log
+myagent.sources.logs.logStdErr = true
+
+#Sink type
+
+myagent.sinks.kafka.type = logger
+
+#Buffers events in memory to channel
+
+myagent.channels.kafka-channel.type = memory
+myagent.channels.kafka-channel.capacity = 1000
+myagent.channels.kafka-channel.transactionCapacity = 100
+
+#Bind the source and sink to the channel
+
+myagent.sources.logs.channels.selector.type = replicating
+myagent.sources.logs.channels = kafka-channel
+
+#Related settings Kafka
+
+myagent.sinks.kafka.type = org.apache.flume.sink.kafka.KafkaSink
+myagent.sinks.kafka.topic = apache-logs
+myagent.sinks.kafka.brokerList = 127.0.0.1:9092
+myagent.sinks.kafka.requiredAcks = 1
+myagent.sinks.kafka.batchSize = 20
+myagent.sinks.kafka.channel = kafka-channel
