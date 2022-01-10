@@ -1,0 +1,47 @@
+
+from pyspark import SparkContext
+from operator import add
+logFile = "file:///home/hadoop/spark-2.1.0-bin-hadoop2.7/README.md"
+sc = SparkContext("local", "first app")
+logData = sc.textFile(logFile).cache()
+numAs = logData.filter(lambda s: 'a' in s).count()
+numBs = logData.filter(lambda s: 'b' in s).count()
+print "Lines with a: %i, lines with b: %i" % (numAs, numBs)
+
+$SPARK_HOME/bin/spark-submit firstapp.py
+
+words = sc.parallelize (["scala","java","hadoop","spark","akka","spark vs hadoop","pyspark","pyspark and spark"])
+
+counts = words.count()
+words_filter = words.filter(lambda x: 'spark' in x)
+filtered = words_filter.collect()
+words_map = words.map(lambda x: (x, X+2))
+
+
+nums = sc.parallelize([1, 2, 3, 4, 5])
+adding = nums.reduce(add)
+
+
+x = sc.parallelize([("spark", 1), ("hadoop", 4)])
+y = sc.parallelize([("spark", 2), ("hadoop", 5)])
+joined = x.join(y)
+
+words.cache() 
+caching = words.persist().is_cached
+
+words_new = sc.broadcast(["scala", "java", "hadoop", "spark", "akka"])
+
+from pyspark import SparkConf, SparkContext
+conf = SparkConf().setAppName("PySpark App").setMaster("spark://master:7077")
+sc = SparkContext(conf=conf)
+
+from pyspark import SparkFiles
+sc.addFile(manish.txt)
+print "Absolute Path -> %s" % SparkFiles.get(finddistancename)
+
+/home/user/hadoop/bigdata/manish.txt
+
+
+rdd1.persist( pyspark.StorageLevel.MEMORY_AND_DISK_2)
+
+

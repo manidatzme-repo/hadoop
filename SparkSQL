@@ -1,0 +1,37 @@
+sc = SparkContext("local", "first app")
+sqlContext = SQLContext(sc)
+from pyspark.sql import Row
+input = [('John',25),('Jerry',22),('Harry',20),('Tim',26)]
+rdd = sc.parallelize(input)
+people = rdd.map(lambda x: Row(name=x[0], age=int(x[1])))
+schemaPeople = sqlContext.createDataFrame(people)
+
+schema = (name string, age interger)
+
+./bin/pyspark --packages com.databricks:spark-csv_2.10:1.3.0
+
+input = sqlContext.load(source="com.databricks.spark.csv", path = 'PATH/input.csv', header = True,inferSchema = True)
+test = sqlContext.load(source="com.databricks.spark.csv", path = '/home/test-comb.csv', header = True,inferSchema = True)
+
+input.printSchema()
+input.head(5)
+input.show(2,truncate= True)
+input.count(),test.count()
+len(input.columns)
+input.describe().show()
+input.select('User_ID','Age').show(5)
+input.select('Product_ID').distinct().count()
+
+input.select('Age','Gender').dropDuplicates().show()
+input.fillna(-1).show(2)
+input.filter(input.Purchase > 15000).count()
+input.groupby('Age').agg({'Purchase': 'mean'}).show()
+input.orderBy(input.Purchase.desc()).show(5)
+input.withColumn('Purchase_new', input.Purchase /2.0).select('Purchase','Purchase_new').show(5)
+input.drop('Purchase').columns
+input.registerAsTable('input_table')
+sqlContext.sql('select Product_ID from input_table').show(5)
+sqlContext.sql('select Age, max(Purchase) from input_table group by Age').show()
+
+df = sqlContext.createDataFrame(rdd, schema)
+schemaPeople.createOrReplaceTempView("RddName")
